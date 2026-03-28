@@ -6,6 +6,7 @@ from ebooklib import epub
 
 # ===================== 配置区（可修改）=====================
 BASE_DIR_URL = "https://m.biquge345.com/shu/10002"  # 小说基础目录地址
+DOMAIN = "https://m.biquge345.com"  # 网站根域名（修复相对路径必备）
 PAGE_START = 1  # 起始目录页
 PAGE_END = 3   # 结束目录页
 BOOK_TITLE = "剑来"  # 生成的电子书书名
@@ -23,7 +24,7 @@ HEADERS = {
 def get_html(url: str) -> str:
     """获取网页HTML内容，带重试机制"""
     try:
-        response = requests.get(url, headers=HEADERS, timeout=10)
+        response = requests.get(url, headers=HEADERS, timeout=15)
         response.raise_for_status()  # 抛出HTTP错误
         response.encoding = "utf-8"  # 强制编码
         return response.text
@@ -32,7 +33,7 @@ def get_html(url: str) -> str:
         return ""
 
 def parse_chapter_links(html: str) -> list:
-    """解析单页目录，提取【章节标题 + 章节链接】"""
+    """解析单页目录，提取【章节标题 + 章节链接】（自动拼接绝对URL）"""
     soup = BeautifulSoup(html, "lxml")
     chapters = []
     # 匹配所有目录li标签中的a链接
@@ -40,7 +41,9 @@ def parse_chapter_links(html: str) -> list:
         title = a_tag.get("title", "").strip()
         link = a_tag.get("href", "").strip()
         if title and link:
-            chapters.append({"title": title, "url": link})
+            # 核心修复：相对路径拼接域名，转为完整URL
+            full_link = DOMAIN + link
+            chapters.append({"title": title, "url": full_link})
     return chapters
 
 def get_all_chapters() -> list:
