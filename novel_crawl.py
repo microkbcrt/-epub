@@ -7,7 +7,7 @@ from ebooklib import epub
 # ===================== 配置区（可修改）=====================
 BASE_DIR_URL = "https://m.biquge345.com/shu/10002"  # 小说基础目录地址
 PAGE_START = 1  # 起始目录页
-PAGE_END = 68   # 结束目录页
+PAGE_END = 3   # 结束目录页
 BOOK_TITLE = "剑来"  # 生成的电子书书名
 BOOK_AUTHOR = "烽火戏诸侯"  # 作者
 OUTPUT_EPUB = "剑来.epub"  # 输出文件名
@@ -109,14 +109,16 @@ def create_epub(chapters: list):
         if not content:
             continue
 
+        # 修复语法错误：提前处理换行替换
+        content_html = content.replace('\n', '</p><p>')
         # 创建EPUB章节
         epub_chap = epub.EpubHtml(
             title=chap["title"],
             file_name=f"chap_{idx}.xhtml",
             lang="zh"
         )
-        # 章节内容格式（HTML）
-        epub_chap.content = f"<h1>{chap['title']}</h1><p>{content.replace('\n', '</p><p>')}</p>"
+        # 修正后的赋值语句
+        epub_chap.content = f"<h1>{chap['title']}</h1><p>{content_html}</p>"
 
         # 添加章节到书籍
         book.add_item(epub_chap)
