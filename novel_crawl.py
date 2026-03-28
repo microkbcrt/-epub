@@ -8,7 +8,7 @@ from ebooklib import epub
 BASE_DIR_URL = "https://m.biquge345.com/shu/10002"  # 小说基础目录地址
 DOMAIN = "https://m.biquge345.com"  # 网站根域名（修复相对路径必备）
 PAGE_START = 1  # 起始目录页
-PAGE_END = 3   # 结束目录页
+PAGE_END = 68   # 结束目录页
 BOOK_TITLE = "剑来"  # 生成的电子书书名
 BOOK_AUTHOR = "烽火戏诸侯"  # 作者
 OUTPUT_EPUB = "剑来.epub"  # 输出文件名
