@@ -5,13 +5,13 @@ from bs4 import BeautifulSoup
 from ebooklib import epub
 
 # ===================== 配置区（可修改）=====================
-BASE_DIR_URL = "https://m.biquge345.com/shu/10002"  # 小说基础目录地址
+BASE_DIR_URL = "https://m.biquge345.com/shu/55863"  # 小说基础目录地址
 DOMAIN = "https://m.biquge345.com"  # 网站根域名
 PAGE_START = 1  # 起始目录页
-PAGE_END = 68   # 结束目录页
-BOOK_TITLE = "剑来"  # 电子书书名
-BOOK_AUTHOR = "烽火戏诸侯"  # 作者
-OUTPUT_EPUB = "剑来.epub"  # 输出文件名
+PAGE_END = 12   # 结束目录页
+BOOK_TITLE = "龙族Ⅴ：悼亡者的归来"  # 电子书书名
+BOOK_AUTHOR = "江南"  # 作者
+OUTPUT_EPUB = "龙族V.epub"  # 输出文件名
 # ==========================================================
 
 # 请求头
